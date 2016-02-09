@@ -63,7 +63,7 @@ public class produto extends javax.swing.JFrame {
 
         jLabel2.setText("ID");
 
-        jLabel1.setText("Nome do Produto");
+        jLabel1.setText("Nome do Produto::");
 
         jLabel3.setText("Preço de Compra");
 
