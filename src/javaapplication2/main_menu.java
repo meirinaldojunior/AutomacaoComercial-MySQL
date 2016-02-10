@@ -20,6 +20,8 @@ import static javaapplication2.configuracoes.base_de_dados.usuario_banco;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import javaapplication2.cadastro.*;
+
 /**
  *
  * @author meirinaldo
@@ -108,7 +110,32 @@ public class main_menu extends javax.swing.JFrame {
        
     }
     
-    
+    public void iniciandoConfLojaCadastrada(){
+          //iniciando configurações salvas do banco
+         String[] arquivo = new String[7];
+			try{			
+                                FileReader entrada = new FileReader("con_loja.sist");
+                                BufferedReader leitor = new BufferedReader(entrada);
+				int c = 0;
+				String linha = null;
+				while((linha = leitor.readLine()) != null)  {
+					arquivo[c] = leitor.readLine();
+					c++;					
+				}
+			}catch(IOException e){
+				JOptionPane.showMessageDialog(null, "Erro ao buscar arquivo de "
+                                        + "configurações da Loja, verifique se a mesma está cadastrada!");
+			}
+
+                        //seta campos configurações com os dados da conexão
+                        razaosocial_label.setText(arquivo[0]);
+                        fantasia_label.setText(arquivo[1]);
+                        cnpj_label.setText(arquivo[2]);
+                        telefone_label.setText(arquivo[3]);
+                        endereco_label.setText(arquivo[4] + " " + arquivo[5]+ "," + arquivo[6] );
+                        email_label.setText(arquivo[7]);
+                        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,11 +150,18 @@ public class main_menu extends javax.swing.JFrame {
         bar_status = new javax.swing.JToolBar();
         jLabel2 = new javax.swing.JLabel();
         base_de_dados_concebida = new javax.swing.JLabel();
+        razaosocial_label = new javax.swing.JLabel();
+        fantasia_label = new javax.swing.JLabel();
+        cnpj_label = new javax.swing.JLabel();
+        endereco_label = new javax.swing.JLabel();
+        email_label = new javax.swing.JLabel();
+        telefone_label = new javax.swing.JLabel();
         bar_menu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -147,6 +181,28 @@ public class main_menu extends javax.swing.JFrame {
 
         base_de_dados_concebida.setText("null");
         bar_status.add(base_de_dados_concebida);
+
+        razaosocial_label.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        razaosocial_label.setForeground(new java.awt.Color(255, 0, 0));
+        razaosocial_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        razaosocial_label.setText("Sem Razão Social Cadastrada");
+
+        fantasia_label.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        fantasia_label.setForeground(new java.awt.Color(2, 11, 245));
+        fantasia_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        fantasia_label.setText("Sem Nome Fantasia Cadastrado");
+
+        cnpj_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cnpj_label.setText("Sem CNPJ Cadastrado");
+
+        endereco_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        endereco_label.setText("Sem Endereço Cadastrado");
+
+        email_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        email_label.setText("Sem Email Cadastrado");
+
+        telefone_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        telefone_label.setText("Sem Telefone Cadastrado");
 
         bar_menu.setEnabled(false);
 
@@ -170,6 +226,14 @@ public class main_menu extends javax.swing.JFrame {
 
         jMenuItem3.setText("Entrada de Produto");
         jMenu1.add(jMenuItem3);
+
+        jMenuItem6.setText("Loja");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
 
         bar_menu.add(jMenu1);
 
@@ -205,21 +269,42 @@ public class main_menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(razaosocial_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fantasia_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cnpj_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(endereco_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(115, 115, 115))
+                .addGap(90, 90, 90))
+            .addComponent(email_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bar_status, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bar_status, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 660, Short.MAX_VALUE))
+                    .addComponent(telefone_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(144, 144, 144)
+                .addGap(38, 38, 38)
+                .addComponent(razaosocial_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fantasia_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cnpj_label)
+                .addGap(7, 7, 7)
+                .addComponent(telefone_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(endereco_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(email_label)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(bar_status, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -255,6 +340,13 @@ public class main_menu extends javax.swing.JFrame {
         frame_gerencia_usuario.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+            // Abrir cadastro de loja
+        loja frame_loja = new loja();
+        frame_loja.setVisible(true);
+                
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -287,6 +379,7 @@ public class main_menu extends javax.swing.JFrame {
             public void run() {
                 if(carregado == true)
                     new main_menu().setVisible(true);
+                    
             }
         });
     }
@@ -295,6 +388,10 @@ public class main_menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar bar_menu;
     private javax.swing.JToolBar bar_status;
     private javax.swing.JLabel base_de_dados_concebida;
+    private javax.swing.JLabel cnpj_label;
+    private javax.swing.JLabel email_label;
+    private javax.swing.JLabel endereco_label;
+    private javax.swing.JLabel fantasia_label;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -306,5 +403,8 @@ public class main_menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JLabel razaosocial_label;
+    private javax.swing.JLabel telefone_label;
     // End of variables declaration//GEN-END:variables
 }
