@@ -66,6 +66,8 @@ public class loja extends javax.swing.JFrame {
         email_field = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Loja");
+        setAlwaysOnTop(true);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("Cadastro de loja");
@@ -236,8 +238,8 @@ public class loja extends javax.swing.JFrame {
 
     private void bt_cadastro_lojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastro_lojaActionPerformed
         // mensagem de confirmação de inserção da loja
-        int Autorizacao_insercao = JOptionPane.showConfirmDialog(null, "Deseja incluir a loja "+ razaoSocial_field.getText()
-                + " e incluir o usuário dono do Token: "+ admToken_field.getText() + " como administrador do sistema? isso dará acesso a todas as funcionalidades do mesmo.");
+        int Autorizacao_insercao = JOptionPane.showConfirmDialog(this, "Deseja incluir a loja "+ razaoSocial_field.getText()
+                + " e incluir o usuário dono do Token: "+ admToken_field.getText() + " como administrador do sistema? \nisso dará acesso a todas as funcionalidades do mesmo.");
         //pegando boolena da opção recolhimento de ICMS
         
         boolean estado = ICMS_opcao.isSelected();
@@ -263,9 +265,9 @@ public class loja extends javax.swing.JFrame {
                     + estado //diz ao cadastro que a empresa recolhe ICMS
                     + this.admToken_field.getText() + "')");
  
-            JOptionPane.showMessageDialog(rootPane, "Loja Cadastrada com Sucesso!");
+            JOptionPane.showMessageDialog(this, "Loja Cadastrada com Sucesso!");
         } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(rootPane, e);
+            JOptionPane.showMessageDialog(this, e);
         }//Fim try
 
        //Salvar Arquivo das configurações da loja
@@ -341,7 +343,7 @@ public class loja extends javax.swing.JFrame {
         }
         
         if(erro_gravar != true){
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso...!");
+            JOptionPane.showMessageDialog(null, "Loja cadastrada com sucesso...!\nVocê precisa reiniciar o sistema para as configurações entretarem em vigor.");
             dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Erro ao salvar! \nVerifique as configurações inseridas e tente novamente!");

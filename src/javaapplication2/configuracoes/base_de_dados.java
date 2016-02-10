@@ -56,8 +56,8 @@ public class base_de_dados extends javax.swing.JFrame {
 					c++;					
 				}
 			}catch(IOException e){
-				JOptionPane.showMessageDialog(null, "Erro ao buscar arquivo de "
-                                        + "configurações da Base de Dados");
+                            /*JOptionPane.showMessageDialog(this, "Erro ao buscar arquivo de "
+                            + "configurações da Base de Dados");*/
 			}
 
                         //seta campos configurações com os dados da conexão
@@ -254,10 +254,10 @@ public class base_de_dados extends javax.swing.JFrame {
         }
         
         if(erro_gravar != true){
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso...!");
+            JOptionPane.showMessageDialog(this, "Gravado com sucesso...!");
             dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Erro ao salvar! \nVerifique as configurações inseridas e tente novamente!");
+            JOptionPane.showMessageDialog(this, "Erro ao salvar! \nVerifique as configurações inseridas e tente novamente!");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -277,7 +277,7 @@ public class base_de_dados extends javax.swing.JFrame {
              Connection conn = DriverManager.getConnection("jdbc:mysql://"+caminho_banco+":"+porta_banco+"/"+banco_acesso, usuario_banco, senha_banco);
             
             if(conn != null){
-                JOptionPane.showMessageDialog(null, "Conexão Realizada...!");
+                JOptionPane.showMessageDialog(this, "Conexão Realizada...!");
             }
  
         } catch (SQLException | ClassNotFoundException e) {

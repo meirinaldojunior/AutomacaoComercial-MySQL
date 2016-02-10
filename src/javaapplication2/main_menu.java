@@ -32,6 +32,8 @@ public class main_menu extends javax.swing.JFrame {
      * Creates new form main_menu
      */
     public static Boolean carregado = false;
+    int controle_erro = 0;
+    Boolean arquivo_loja_naoEncontrado = false;
     
     public main_menu() {
      
@@ -63,8 +65,11 @@ public class main_menu extends javax.swing.JFrame {
 					c++;					
 				}
 			}catch(IOException e){
-				JOptionPane.showMessageDialog(null, "Erro ao buscar arquivo de "
-                                        + "configurações da Base de Dados");
+                             loading.ver_conf_loja.setVisible(false);
+                             loading.ver_config.enable(true);  
+                            loading.status_carregamento_bd.setText("Configuração da base não realizada...!");
+                               controle_erro = 1; // erro caso não tenha arquivos de configuração da base acrescenta 1 no variavel de controle de erro
+                               System.out.printf("Configurações da base ausente");
 			}
 
                         //seta campos configurações com os dados da conexão
@@ -74,6 +79,8 @@ public class main_menu extends javax.swing.JFrame {
                         senha_banco = arquivo[3];
                         banco_acesso = arquivo[4];
       
+                        iniciandoConfLojaCadastrada();
+                        
                         try {
                           //Registra JDBC driver
                           Class.forName("com.mysql.jdbc.Driver");
@@ -81,8 +88,9 @@ public class main_menu extends javax.swing.JFrame {
                           //Abrindo a conexão: ATENÇÃO OS DOIS PARÂMETROS VAZIOS("") SÃO USUÁRIO E SENHA, RESPECTIVAMENTE.
                           Connection conn = DriverManager.getConnection("jdbc:mysql://"+caminho_banco+":"+porta_banco+"/"+banco_acesso, usuario_banco, senha_banco);
                            
-                           if(conn != null){
+                           if(conn != null && arquivo_loja_naoEncontrado ==false){
                                 //manda feedback para tela inicial
+                               
                                bar_menu.setVisible(true);
                                bar_status.setVisible(true);
                                base_de_dados_concebida.setText("conectada com: "+banco_acesso);
@@ -95,7 +103,6 @@ public class main_menu extends javax.swing.JFrame {
                           //erro na base, deixar usuário verificar o que aconteceu!
                           
                           carregado = false;
-                          loading.status_carregamento_bd.setText("ERRO AO CONECTAR COM BASE DE DADOS..!");
                           loading.status_carregamento_bd.setBackground(Color.red);
                           loading.ver_config.setVisible(true);
                       }//Fim try
@@ -105,35 +112,46 @@ public class main_menu extends javax.swing.JFrame {
                     }  
 
                 });
-        
-        
-       
+            
     }
     
     public void iniciandoConfLojaCadastrada(){
           //iniciando configurações salvas do banco
-         String[] arquivo = new String[7];
+         String[] arquivo_confLoja = new String[8];
 			try{			
                                 FileReader entrada = new FileReader("con_loja.sist");
                                 BufferedReader leitor = new BufferedReader(entrada);
 				int c = 0;
 				String linha = null;
 				while((linha = leitor.readLine()) != null)  {
-					arquivo[c] = leitor.readLine();
+					arquivo_confLoja[c] = leitor.readLine();
 					c++;					
 				}
 			}catch(IOException e){
-				JOptionPane.showMessageDialog(null, "Erro ao buscar arquivo de "
-                                        + "configurações da Loja, verifique se a mesma está cadastrada!");
+                            
+                            carregado = false;
+                            if(controle_erro == 1){
+                              loading.status_carregamento_bd.setText("Configuração da Base e Loja não realizada!!!"); 
+                              loading.ver_conf_loja.enable(true);
+                              loading.ver_config.enable(true);
+                            } else if (controle_erro == 0) {
+                                arquivo_loja_naoEncontrado = true;
+                                carregado = false;
+                                loading.status_carregamento_bd.setText("Configuração da loja não realizada..!");                                
+                                loading.ver_conf_loja.enable(true);
+                                loading.ver_config.setVisible(false);
+                            }
+                           
+                            System.out.printf("Configurações da loja ausente");
 			}
 
                         //seta campos configurações com os dados da conexão
-                        razaosocial_label.setText(arquivo[0]);
-                        fantasia_label.setText(arquivo[1]);
-                        cnpj_label.setText(arquivo[2]);
-                        telefone_label.setText(arquivo[3]);
-                        endereco_label.setText(arquivo[4] + " " + arquivo[5]+ "," + arquivo[6] );
-                        email_label.setText(arquivo[7]);
+                        razaosocial_label.setText(arquivo_confLoja[0]);
+                        fantasia_label.setText(arquivo_confLoja[1]);
+                        cnpj_label.setText(arquivo_confLoja[2]);
+                        telefone_label.setText(arquivo_confLoja[3]);
+                        endereco_label.setText(arquivo_confLoja[4] + " " + arquivo_confLoja[5]+ "," + arquivo_confLoja[6] );
+                        email_label.setText(arquivo_confLoja[7]);
                         
     }
 
@@ -171,6 +189,7 @@ public class main_menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Sistema de Automação Comercial");
 
         bar_status.setRollover(true);
@@ -273,19 +292,13 @@ public class main_menu extends javax.swing.JFrame {
             .addComponent(fantasia_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(cnpj_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(endereco_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(90, 90, 90))
             .addComponent(email_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bar_status, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 660, Short.MAX_VALUE))
-                    .addComponent(telefone_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(telefone_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
+            .addComponent(bar_status, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

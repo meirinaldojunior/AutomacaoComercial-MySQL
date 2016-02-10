@@ -5,17 +5,24 @@
  */
 package javaapplication2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author meirinaldo
  */
 public class loading extends javax.swing.JFrame {
 
+    public static int erro_cod = 0;
+    
     /**
      * Creates new form loading
      */
     public loading() {
         initComponents();
+        
+       
+        
     }
 
     /**
@@ -28,20 +35,30 @@ public class loading extends javax.swing.JFrame {
     private void initComponents() {
 
         status_carregamento_bd = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
         ver_config = new javax.swing.JButton();
+        ver_conf_loja = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
 
         status_carregamento_bd.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        status_carregamento_bd.setText("AGUARDE... CARREGANDO BASE!");
+        status_carregamento_bd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        status_carregamento_bd.setText("AGUARDE... CARREGANDO BASE DE DADOS!");
         status_carregamento_bd.setBorder(null);
 
-        ver_config.setText("VERIFICAR CONFIGURAÇÕES");
+        ver_config.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        ver_config.setText("VERIFICAR CONFIGURAÇÕES DA BASE");
         ver_config.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ver_configActionPerformed(evt);
+            }
+        });
+
+        ver_conf_loja.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        ver_conf_loja.setText("VERIFICAR CONFIGURAÇÕES DA LOJA");
+        ver_conf_loja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ver_conf_lojaActionPerformed(evt);
             }
         });
 
@@ -49,28 +66,24 @@ public class loading extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(status_carregamento_bd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(160, Short.MAX_VALUE)
+                .addContainerGap(130, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(status_carregamento_bd, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ver_config)
-                        .addGap(97, 97, 97)))
-                .addGap(128, 128, 128))
+                    .addComponent(ver_conf_loja)
+                    .addComponent(ver_config))
+                .addGap(120, 120, 120))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(status_carregamento_bd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(ver_config)
-                .addGap(27, 27, 27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ver_conf_loja)
+                .addGap(36, 36, 36))
         );
 
         pack();
@@ -83,7 +96,13 @@ public class loading extends javax.swing.JFrame {
                 new javaapplication2.configuracoes.base_de_dados();
         
         frame_conf.setVisible(true);
+        
     }//GEN-LAST:event_ver_configActionPerformed
+
+    private void ver_conf_lojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver_conf_lojaActionPerformed
+        javaapplication2.cadastro.loja frame_cadastro_loja = new javaapplication2.cadastro.loja();
+        frame_cadastro_loja.setVisible(true);
+    }//GEN-LAST:event_ver_conf_lojaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,13 +135,15 @@ public class loading extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new loading().setVisible(true);
+                
+       
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar jProgressBar1;
     public static javax.swing.JLabel status_carregamento_bd;
+    public static javax.swing.JButton ver_conf_loja;
     public static javax.swing.JButton ver_config;
     // End of variables declaration//GEN-END:variables
 }
