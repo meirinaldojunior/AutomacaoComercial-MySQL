@@ -190,6 +190,11 @@ public class main_menu extends javax.swing.JFrame {
         jMenu2.add(jMenu4);
 
         jMenuItem4.setText("Usuários");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         bar_menu.add(jMenu2);
@@ -241,6 +246,14 @@ public class main_menu extends javax.swing.JFrame {
         
         frame_config_base.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // Abrindo gerenciamento de usuários
+        javaapplication2.configuracoes.usuarios frame_gerencia_usuario = 
+                new javaapplication2.configuracoes.usuarios();
+        
+        frame_gerencia_usuario.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
