@@ -180,7 +180,6 @@ public class main_menu extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -255,9 +254,6 @@ public class main_menu extends javax.swing.JFrame {
         jMenu1.add(jMenuItem6);
 
         bar_menu.add(jMenu1);
-
-        jMenu3.setText("Venda");
-        bar_menu.add(jMenu3);
 
         jMenu2.setText("Configurações");
 
@@ -409,7 +405,6 @@ public class main_menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
